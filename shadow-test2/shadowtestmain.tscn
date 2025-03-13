@@ -1,0 +1,53 @@
+[gd_scene load_steps=8 format=3 uid="uid://dl13p5gvjwjq"]
+
+[ext_resource type="Texture2D" uid="uid://wqsbx60gnmj" path="res://assets/background.png" id="1_2g2tp"]
+[ext_resource type="Script" uid="uid://csojvngbrv5lt" path="res://character_body_2d.gd" id="2_eu0wk"]
+[ext_resource type="Texture2D" uid="uid://bcpqqyur8jk35" path="res://assets/Light.png" id="2_sdd7l"]
+[ext_resource type="Texture2D" uid="uid://bmrccxpqxla3i" path="res://assets/spot.png" id="3_oluwt"]
+[ext_resource type="Texture2D" uid="uid://1608fjin87o8" path="res://assets/caster.png" id="4_pph50"]
+[ext_resource type="Script" uid="uid://4akjvviefika" path="res://camera_2d.gd" id="5_ghm4x"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_stqui"]
+polygon = PackedVector2Array(-16, 16, -16, -16, 16, -16, 16, 16)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(531.5, 369.5)
+scale = Vector2(64.1172, 46.2734)
+texture = ExtResource("1_2g2tp")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.27451, 0.27451, 0.27451, 1)
+
+[node name="jugador" type="Node2D" parent="."]
+position = Vector2(548.43, 315)
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="jugador"]
+script = ExtResource("2_eu0wk")
+
+[node name="Camera2D" type="Camera2D" parent="jugador/CharacterBody2D"]
+ignore_rotation = false
+position_smoothing_enabled = true
+position_smoothing_speed = 4.0
+rotation_smoothing_enabled = true
+rotation_smoothing_speed = 7.0
+script = ExtResource("5_ghm4x")
+
+[node name="PointLight2D" type="PointLight2D" parent="jugador/CharacterBody2D"]
+position = Vector2(22, 14)
+shadow_enabled = true
+texture = ExtResource("2_sdd7l")
+
+[node name="Sprite2D" type="Sprite2D" parent="jugador/CharacterBody2D/PointLight2D"]
+position = Vector2(-20, -13)
+texture = ExtResource("3_oluwt")
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D"]
+position = Vector2(411, 175)
+texture = ExtResource("4_pph50")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Node2D/Sprite2D"]
+occluder = SubResource("OccluderPolygon2D_stqui")
